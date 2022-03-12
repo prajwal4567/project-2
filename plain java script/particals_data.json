@@ -1,0 +1,44 @@
+{
+    "attarct":{
+    "allparticles":{
+        "particles":{
+            "x":{
+
+            },
+            "y":{
+
+            }
+        }
+    }
+    },
+    "repail":{
+    "allparticles":{
+        "particles":{
+            "x":{
+
+            },
+            "y":{
+
+            }
+        }
+    }
+    },
+    "pair":{
+    "spritesaxay":{
+        "ax":{
+
+        },
+        "ay":{
+
+        }
+    },
+    "spritesxy":{
+        "x":{
+
+        },
+        "y":{
+
+        }
+    }
+    }
+}
