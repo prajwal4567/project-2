@@ -1,8 +1,6 @@
 var red,blue;
 var a=[];
 var k=[];
-var ac=[];
-var kc=[];
 var allvalue=[];
 var pairstore=[];
 var m;
@@ -15,26 +13,21 @@ function setup(){
     for(var i = 0 ; i<21 ;i++){
         a[i]=createSprite(Math.round(random(0,1000)),Math.round(random(0,1000)),10,10);
         a[i].addImage("blue",blue);
-        ac.push({x:a[i].x,y:a[i].y});
     }
     for(var f = 0 ; f<6 ;f++){
         k[f]=createSprite(Math.round(random(0,1000)),Math.round(random(0,1000)),10,10);
         k[f].addImage("red",red);
-        kc.push({x:k[f].x,y:k[f].y});
+        console.log(k);
     }
-    allvalue.push(ac,kc)
-    pairstore.push({x:allvalue[0][0].x,y:allvalue[0][0].y,ax:allvalue[1][0].x,ay:allvalue[1][0].x});
 }
 function draw(){
     background("black");
-    //var k=repel();
-    var n=attract(pairstore[0].x,pairstore[0].y,pairstore[0].ax,pairstore[0].ay);
+    repel(k[0],a[0].x,a[0].y,k[0].x,k[0].y);
+    attract(a[0],k[0].x,k[0].y,a[0].x,a[0].y);
+    console.log(k[0].y);             
     drawSprites();
-    a[0].x=n[0];
-    a[0].y=n[1]; 
-    console.log(a[0].x);             
 }  
-function attract(x,y,ax,ay){
+function attract(s,x,y,ax,ay){
 var distanceax=x-ax;
 var distanceay=y-ay;
 var directionax=Math.sign(distanceax);
@@ -56,39 +49,43 @@ var changeax,changeay;
         changeay=100/(distanceay*-1);
         ay = ay-changeay;
     }
-    if(distanceay=0){
-        ay =ay+ 0;
-    }
     if(distanceax=0){
-        ax =ax+ 0;
+        ax = ax+0;
     }
-    var p=[ax,ay];
-    return p;
+    if(distanceay=0){
+        ay = ay+0;
+    }
+    s.x=ax;
+    s.y=ay;
 }
-function repel(x,y,ax,ay){
-var distanceax=x-ax;
-var distanceay=y-ay;
-var directionax=Math.sign(distanceax);
-var directionay=Math.sign(distanceay);
-var changeax,changeay;
-    if(distanceax <101 || distanceay<101 || distanceax <-101 || distanceay<-101){
-        if(directionax = 1){
-            changeax=100-distanceax;
-            ax = ax+changeax;
+function repel(s,x,y,ax,ay){
+var rdistanceax=x-ax;
+var rdistanceay=y-ay;
+var rdirectionax=Math.sign(rdistanceax);
+var rdirectionay=Math.sign(rdistanceay);
+var rchangeax,rchangeay;
+    if(rdistanceax <100 || rdistanceay<100 || rdistanceax >-100 || rdistanceay>-100){
+        if(rdirectionax = 1){
+            rchangeax=100-rdistanceax;
+            ax = ax+rchangeax;
         }
-        if(directionax = -1){
-            changeax=100-(distanceax*-1);
-            ax = ax-changeax;
+        if(rdirectionax = -1){
+            rchangeax=100-(rdistanceax*-1);
+            ax = ax-rchangeax;
         }
-        if(directionay = 1){
-            changeay=100-distanceay;
-            ay = ay+changeay;
+        if(rdirectionay = 1){
+            rchangeay=100-rdistanceay;
+            ay = ay+rchangeay;
         }
-        if(directionay = -1){
-            changeay=100-(distanceay*-1);
-            ay = ay-changeay;
+        if(rdirectionay = -1){
+            rchangeay=100-(rdistanceay*-1);
+            ay = ay-rchangeay;
         }
     }
-var p=[ax,ay];
-return p;
+    if(rdistanceax >100 || rdistanceay>100 || rdistanceax <-100 || rdistanceay<-100){
+        ax=ax+0;
+        ay=ay+0;
+    }
+s.x=ax;
+s.y=ay;
 } 
